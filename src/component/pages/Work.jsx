@@ -107,7 +107,7 @@ function WorkContent() {
         
         <div className="work-title">
           <span className="title-small left-title">REAL WORLD</span>
-          <h1>REVIEWS</h1>
+          <h1 className="text-3xl">My Work For Real World Clients</h1>
           <span className="title-small right-title">FROM CLIENTS</span>
         </div>
         <p className="subtitle-trusted">TRUSTED BY BRANDS FOR PREMIUM AI VISUALS AND CREATIVE QUALITY.</p>
