@@ -5,10 +5,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import MenuOverlay from './MenuOverlay';
 
+const navLinks = [
+  { name: 'HOME', path: '/' },
+  { name: 'WORK', path: '/work' },
+  { name: 'ABOUT', path: '/about' },
+  { name: 'CONTACT', path: '/contact' },
+];
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+
+  // Find the matching link name based on the current pathname, default to 'HOME'
+  const activeLink = navLinks.find((link) => link.path === pathname);
+  const displayName = activeLink ? activeLink.name : 'HOME';
 
   return (
     <>
@@ -22,8 +33,8 @@ export default function Navbar() {
             {theme === 'dark' ? <Sun size={18} className="text-beige-100" /> : <Moon size={18} className="text-brown-900" />}
           </button>
 
-          <Link to="/" className="font-serif italic text-xl md:text-2xl tracking-wide text-brown-900 dark:text-beige-100 px-2">
-            DESIGN X FMCG
+          <Link to={pathname} className="font-serif italic text-xl md:text-2xl tracking-wide text-brown-900 dark:text-beige-100 px-2">
+            {displayName}
           </Link>
 
           <button

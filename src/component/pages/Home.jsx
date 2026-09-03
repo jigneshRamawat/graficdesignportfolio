@@ -144,50 +144,56 @@ function WhyStack() {
   const SHRINK_END = 0.5;              // video container shrinks to right side
   const VIDEO_FADE_START = 0.1;
   const VIDEO_FADE_END = 0.4;          // video fades out completely
-  const IMAGE_START = 0.31;            // first image starts sliding up
-  const IMAGE_DURATION = 0.2;          // each image takes 0.2 of progress
+ const IMAGE_START = 0.30;
+const IMAGE_DURATION = 0.23;   // each image takes 0.2 of progress
   const NUM_IMAGES = whyItems.length;
 
   // Right box transforms: from full‑screen to right‑side card
-  const rightWidth = useTransform(
-    scrollYProgress,
-    [SHRINK_START, SHRINK_END],
-    ["100vw", "40vw"]
-  );
-  const rightHeight = useTransform(
-    scrollYProgress,
-    [SHRINK_START, SHRINK_END],
-    ["100vh", "60vh"]
-  );
-  const rightLeft = useTransform(
-    scrollYProgress,
-    [SHRINK_START, SHRINK_END],
-    ["0", "50vw"]
-  );
-  const rightTop = useTransform(
-    scrollYProgress,
-    [SHRINK_START, SHRINK_END],
-    ["0", "15vh"]
-  );
+ // Right box transforms
+const rightWidth = useTransform(
+  scrollYProgress,
+  [SHRINK_START, SHRINK_END],
+  ["100vw", "40vw"]
+);
 
-  // Left text fades in as the box shrinks
-  const leftOpacity = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 1]
-  );
-  const leftX = useTransform(
-    scrollYProgress,
-    [0.1, 0.3],
-    [-80, 0]
-  );
+const rightHeight = useTransform(
+  scrollYProgress,
+  [SHRINK_START, SHRINK_END],
+  ["100vh", "60vh"]
+);
 
-  // Video opacity
-  const videoOpacity = useTransform(
-    scrollYProgress,
-    [VIDEO_FADE_START, VIDEO_FADE_END],
-    [1, 0]
-  );
+const rightLeft = useTransform(
+  scrollYProgress,
+  [SHRINK_START, SHRINK_END],
+  ["0", "50vw"]
+);
+
+const rightTop = useTransform(
+  scrollYProgress,
+  [SHRINK_START, SHRINK_END],
+  ["0", "15vh"]
+);
+
+// LEFT TEXT
+// Comes in → 100% → HOLD → fade out
+const leftOpacity = useTransform(
+  scrollYProgress,
+  [0.10, 0.20, 1],
+  [0, 1, 1]
+);
+
+const leftX = useTransform(
+  scrollYProgress,
+  [0.10, 0.25],
+  [-80, 0]
+);
+
+// Video opacity
+const videoOpacity = useTransform(
+  scrollYProgress,
+  [VIDEO_FADE_START, VIDEO_FADE_END],
+  [1, 0]
+);
 
   return (
     <div
@@ -209,9 +215,9 @@ function WhyStack() {
               const opacity = useTransform(
                 scrollYProgress,
                 [
-                  Math.max(0, start - 0.02),
+                  Math.max(0, start - 0.08),
                   Math.min(1, start + 0.05),
-                  Math.max(0, end - 0.05),
+                  Math.max(0, end - 0.09),
                   Math.min(1, end + 0.02),
                 ],
                 [0, 1, 1, 0]
@@ -219,7 +225,7 @@ function WhyStack() {
               const x = useTransform(
                 scrollYProgress,
                 [start, start + 0.06, end - 0.06, end],
-                [-80, 0, 0, 60]
+                [-90, 0, 0, 60]
               );
               const y = useTransform(
                 scrollYProgress,
