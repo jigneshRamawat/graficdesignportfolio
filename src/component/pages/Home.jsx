@@ -134,6 +134,7 @@ const whyItems = [
 
 function WhyStack() {
   const containerRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -141,35 +142,128 @@ function WhyStack() {
 
   const SHRINK_START = 0;
   const SHRINK_END = 0.45;
+
   const VIDEO_FADE_START = 0.05;
   const VIDEO_FADE_END = 0.35;
-  
-  const IMAGE_START = 0.2;
-  const IMAGE_DURATION = 0.25; 
 
-  const rightWidth = useTransform(
+  const IMAGE_START = 0.1;
+  const IMAGE_DURATION = 0.25;
+
+  /*
+  =====================================================
+  RESPONSIVE PANEL
+  =====================================================
+
+  Desktop:
+  Full screen
+      ↓
+  48vw width
+  65vh height
+  positioned on right
+
+  Mobile:
+  Full screen
+      ↓
+  92vw width
+  52vh height
+  CENTERED
+  */
+
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.innerWidth < 768;
+
+  /* =====================================================
+     DESKTOP VALUES
+  ===================================================== */
+
+  const desktopWidth = useTransform(
     scrollYProgress,
     [SHRINK_START, SHRINK_END],
     ["100vw", "48vw"]
   );
 
-  const rightHeight = useTransform(
+  const desktopHeight = useTransform(
     scrollYProgress,
     [SHRINK_START, SHRINK_END],
     ["100vh", "65vh"]
   );
 
-  const rightLeft = useTransform(
+  const desktopLeft = useTransform(
     scrollYProgress,
     [SHRINK_START, SHRINK_END],
-    ["0", "48vw"]
+    ["0vw", "48vw"]
   );
 
-  const rightTop = useTransform(
+  const desktopTop = useTransform(
     scrollYProgress,
     [SHRINK_START, SHRINK_END],
-    ["0", "15vh"]
+    ["0vh", "15vh"]
   );
+
+  /* =====================================================
+     MOBILE VALUES
+  =====================================================
+
+  IMPORTANT:
+  92vw width means:
+
+  100vw - 92vw = 8vw
+
+  8vw / 2 = 4vw
+
+  So left = 4vw gives PERFECT CENTER.
+  */
+
+  const mobileWidth = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vw", "92vw"]
+  );
+
+  const mobileHeight = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vh", "52vh"]
+  );
+
+  const mobileLeft = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0vw", "4vw"]
+  );
+
+  const mobileTop = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0vh", "28vh"]
+  );
+
+  /*
+  =====================================================
+  CHOOSE RESPONSIVE VALUES
+  =====================================================
+  */
+
+  const rightWidth = isMobile
+    ? mobileWidth
+    : desktopWidth;
+
+  const rightHeight = isMobile
+    ? mobileHeight
+    : desktopHeight;
+
+  const rightLeft = isMobile
+    ? mobileLeft
+    : desktopLeft;
+
+  const rightTop = isMobile
+    ? mobileTop
+    : desktopTop;
+
+  /* =====================================================
+     LEFT CONTENT
+  ===================================================== */
 
   const leftOpacity = useTransform(
     scrollYProgress,
@@ -183,6 +277,10 @@ function WhyStack() {
     [-40, 0]
   );
 
+  /* =====================================================
+     VIDEO
+  ===================================================== */
+
   const videoOpacity = useTransform(
     scrollYProgress,
     [VIDEO_FADE_START, VIDEO_FADE_END],
@@ -192,21 +290,86 @@ function WhyStack() {
   return (
     <div
       ref={containerRef}
-      className="relative md:h-[300vh] bg-white dark:bg-brown-900"
+      className="
+        relative
+        h-[280vh]
+        md:h-[300vh]
+        bg-white
+        dark:bg-brown-900
+      "
     >
-      {/* Mobile-Friendly Grid Layout for Small Screens, Sticky Desktop Scroll Layout */}
-      <div className="relative md:sticky top-0 md:h-screen w-full overflow-hidden flex flex-col md:flex-row items-center py-12 md:py-0">
-        
-        {/* LEFT TEXT COLUMN */}
+
+      {/* =================================================
+          STICKY SCREEN
+      ================================================= */}
+
+      <div
+        className="
+          sticky
+          top-0
+          h-screen
+          w-full
+          overflow-hidden
+          flex
+          flex-col
+          md:flex-row
+          items-center
+        "
+      >
+
+        {/* =================================================
+            LEFT TEXT
+        ================================================= */}
+
         <motion.div
-          style={{ opacity: leftOpacity, x: leftX }}
-          className="relative z-20 flex items-center justify-center w-full md:w-1/2 p-6 md:p-12"
+          style={{
+            opacity: leftOpacity,
+            x: leftX,
+          }}
+          className="
+            relative
+            z-20
+
+            flex
+            items-center
+            justify-center
+
+            h-full
+            w-full
+            md:w-1/2
+
+            p-6
+            md:p-12
+
+            pointer-events-none
+            md:pointer-events-auto
+          "
         >
-          {/* Desktop stacked animated view */}
-          <div className="hidden md:block relative w-full h-[300px]">
+
+          <div
+            className="
+              relative
+              w-full
+              h-[360px]
+              md:h-[300px]
+
+              pointer-events-auto
+            "
+          >
+
             {whyItems.map((item, i) => {
-              const start = IMAGE_START + i * IMAGE_DURATION;
-              const end = start + IMAGE_DURATION;
+
+              const start =
+                IMAGE_START +
+                i * IMAGE_DURATION;
+
+              const end =
+                start +
+                IMAGE_DURATION;
+
+              /* ------------------------------
+                 TEXT OPACITY
+              ------------------------------ */
 
               const opacity = useTransform(
                 scrollYProgress,
@@ -218,62 +381,142 @@ function WhyStack() {
                 ],
                 [0, 1, 1, 0]
               );
-              
+
+              /* ------------------------------
+                 TEXT X
+              ------------------------------ */
+
               const x = useTransform(
                 scrollYProgress,
-                [start, start + 0.05, end - 0.05, end],
-                [-40, 0, 0, 30]
+                [
+                  start,
+                  start + 0.05,
+                  end - 0.05,
+                  end,
+                ],
+                [-30, 0, 0, 20]
               );
-              
+
+              /* ------------------------------
+                 TEXT Y
+              ------------------------------ */
+
               const y = useTransform(
                 scrollYProgress,
-                [start, start + 0.05],
+                [start, start + 1.05],
                 [15, 0]
               );
 
               return (
                 <motion.div
                   key={i}
-                  style={{ opacity, x, y }}
-                  className="absolute inset-0 flex flex-col justify-center text-left"
+                  style={{
+                    opacity,
+                    x,
+                    y,
+                  }}
+                  className="
+                    absolute
+                    inset-0
+                    flex
+                    flex-col
+                    justify-end
+                    md:justify-center
+                    text-center
+                    md:text-left
+                    md:bg-transparent
+                    p-6
+                    md:p-0
+                    rounded-2xl
+                    backdrop-blur-sm
+                    md:backdrop-blur-none
+                  "
                 >
-                  <span className="text-terracotta text-xs tracking-[0.3em] font-medium mb-3">
+
+                  <span
+                    className="
+                      text-terracotta
+                      text-xs
+                      tracking-[0.3em]
+                      font-medium
+                      mb-2
+                    "
+                  >
                     0{i + 1} / 0{whyItems.length}
                   </span>
-                  <h3 className="font-serif text-5xl lg:text-6xl text-brown-900 dark:text-beige-100 mb-4">
+
+                  <h3
+                    className="
+                      font-serif
+
+                      text-2xl
+                      sm:text-4xl
+                      md:text-5xl
+                      lg:text-6xl
+
+                      text-white
+                      font-bold
+                      md:text-brown-900
+
+                      dark:md:text-beige-100
+
+                      mb-3
+
+                      drop-shadow-md
+                    "
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-brown-600 dark:text-beige-300 text-base lg:text-lg leading-relaxed max-w-md">
+
+                  <p
+                    className="
+                      text-gray-200
+                      md:text-brown-600
+
+                      dark:md:text-beige-300
+
+                      text-xs
+                      sm:text-sm
+                      md:text-base
+                      lg:text-lg
+
+                      leading-relaxed
+
+                      max-w-md
+
+                      mx-auto
+                      md:mx-0
+
+                      mb-4
+
+                      drop-shadow
+                    "
+                  >
                     {item.desc}
                   </p>
+
                 </motion.div>
               );
             })}
-          </div>
 
-          {/* Mobile standard stacked view */}
-          <div className="block md:hidden flex flex-col gap-12 w-full text-center">
-            {whyItems.map((item, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="text-terracotta text-xs tracking-[0.3em] font-medium mb-2">
-                  0{i + 1} / 0{whyItems.length}
-                </span>
-                <h3 className="font-serif text-3xl text-brown-900 dark:text-beige-100 mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-brown-600 dark:text-beige-300 text-sm leading-relaxed max-w-sm mb-6">
-                  {item.desc}
-                </p>
-                <div className="w-full h-64 rounded-xl overflow-hidden shadow-lg">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                </div>
-              </div>
-            ))}
           </div>
 
         </motion.div>
 
-        {/* RIGHT BOX – Desktop Sticky Image/Video Animation Panel */}
+
+        {/* =================================================
+            RIGHT / IMAGE PANEL
+
+            MOBILE:
+            width 92vw
+            left 4vw
+            = CENTER
+
+            DESKTOP:
+            width 48vw
+            left 48vw
+        ================================================= */}
+
         <motion.div
           style={{
             width: rightWidth,
@@ -281,41 +524,105 @@ function WhyStack() {
             left: rightLeft,
             top: rightTop,
           }}
-          className="absolute z-10 rounded-2xl overflow-hidden shadow-2xl bg-brown-950 hidden md:block"
+          className="
+            absolute
+            z-10
+
+            overflow-hidden
+
+            rounded-none
+            md:rounded-2xl
+
+            shadow-2xl
+
+            bg-brown-950
+
+            max-w-full
+          "
         >
+
+          {/* =================================================
+              VIDEO
+          ================================================= */}
+
           <motion.div
-            style={{ opacity: videoOpacity, zIndex: 0 }}
+            style={{
+              opacity: videoOpacity,
+              zIndex: 0,
+            }}
             className="absolute inset-0"
           >
+
             <video
               autoPlay
               muted
               loop
               playsInline
-              className="w-full h-full object-cover"
+              className="
+                w-full
+                h-full
+                object-cover
+              "
               poster={whyItems[0].img}
             >
-              <source src={videowhy} type="video/mp4" />
+
+              <source
+                src={videowhy}
+                type="video/mp4"
+              />
+
             </video>
-            <div className="absolute inset-0 bg-brown-950/20" />
+
+            <div
+              className="
+                absolute
+                inset-0
+                bg-brown-950/30
+                md:bg-brown-950/20
+              "
+            />
+
           </motion.div>
 
+
+          {/* =================================================
+              SEQUENTIAL IMAGES
+          ================================================= */}
+
           {whyItems.map((item, i) => {
-            const start = IMAGE_START + i * IMAGE_DURATION;
-            const end = start + IMAGE_DURATION;
+
+            const start =
+              IMAGE_START +
+              i * IMAGE_DURATION;
+
+            const end =
+              start +
+              IMAGE_DURATION;
+
+            /* ------------------------------
+               IMAGE SLIDE
+            ------------------------------ */
 
             const y = useTransform(
               scrollYProgress,
               [start, end],
               ["100%", "0%"]
             );
-            
+
+            /* ------------------------------
+               IMAGE SCALE
+            ------------------------------ */
+
             const scale = useTransform(
               scrollYProgress,
               [start, start + 0.05],
               [0.95, 1]
             );
-            
+
+            /* ------------------------------
+               IMAGE OPACITY
+            ------------------------------ */
+
             const opacity = useTransform(
               scrollYProgress,
               [start, start + 0.04],
@@ -325,28 +632,56 @@ function WhyStack() {
             return (
               <motion.div
                 key={i}
-                style={{ y, scale, opacity, zIndex: i + 1 }}
-                className="absolute inset-0"
+                style={{
+                  y,
+                  scale,
+                  opacity,
+                  zIndex: i + 1,
+                }}
+                className="
+                  absolute
+                  inset-0
+                  w-full
+                  h-full
+                  overflow-hidden
+                "
               >
+
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  className="
+                    block
+
+                    w-full
+                    h-full
+
+                    object-cover
+
+                    object-center
+                  "
                 />
-                <div className="absolute inset-0 bg-brown-950/30" />
-                <h3 className="absolute inset-0 flex items-center justify-center font-serif text-5xl text-white tracking-wide">
-                  {item.title}
-                </h3>
+
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-brown-950/40
+                    md:bg-brown-950/30
+                  "
+                />
+
               </motion.div>
             );
           })}
+
         </motion.div>
 
       </div>
+
     </div>
   );
 }
-
 const services = [
   {
     title: "PACKAGING DESIGN",
@@ -629,20 +964,38 @@ export default function Home() {
       </section>
 
       {/* ==================== WHY HEADER ==================== */}
+{/* ==================== WHY HEADER ==================== */}
       <section className="pt-20 md:pt-40 px-6 bg-white dark:bg-brown-900">
-        <div className="max-w-6xl mx-auto text-center  md:mb-0">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2, // Controls the delay between each layer appearing
+              },
+            },
+          }}
+          className="max-w-6xl mx-auto text-center mb-6 md:mb-0"
+        >
           <motion.p
-            initial={{ opacity: 0.5 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
             className="text-terracotta tracking-[0.3em] text-sm font-medium mb-6"
           >
             WHY MONA ASWAL
           </motion.p>
+          
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
             className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-brown-900 dark:text-beige-100 mb-6 leading-tight"
           >
             Skip traditional agencies.
@@ -651,18 +1004,19 @@ export default function Home() {
               Premium beauty visuals delivered with precision.
             </span>
           </motion.h2>
+          
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
             className="text-brown-400 dark:text-beige-500 tracking-wide text-xs md:text-sm max-w-2xl mx-auto px-2"
           >
             CREATING SCALABLE DESIGN SYSTEMS THAT REDUCE PRODUCTION COSTS,
             ACCELERATE CAMPAIGNS.
           </motion.p>
-        </div>
+        </motion.div>
       </section>
-
       {/* ==================== WHY STACK ==================== */}
       <WhyStack />
 
