@@ -6,8 +6,8 @@ import heroimg from "../../img/hero.png";
 import videow from "../../img/videowhhy.mp4";
 
 const heroBg = heroimg;
-
 const videowhy = videow;
+
 const leftFloaters = [
   {
     src: "https://imgs.search.brave.com/V1Cp9bOdJzbYTuyQqqhg5J_p8U_J2FVuq_RxxPn0JOk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjkx/NTcyOTc1L3Bob3Rv/L2Nvc21ldGljcy5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Wlc2SnpYYXM3RGlu/WkV6LTd5RDZSMlNW/LTlsWlZUMjNEVWxL/RnNwcExFdz0",
@@ -31,9 +31,6 @@ const leftFloaters = [
   },
 ];
 
-/* =========================================================
-   RIGHT SIDE MARQUEE IMAGES
-========================================================= */
 const rightFloaters = [
   {
     src: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80",
@@ -57,9 +54,6 @@ const rightFloaters = [
   },
 ];
 
-/* =========================================================
-   MARQUEE COLUMN COMPONENT
-========================================================= */
 function MarqueeColumn({ images, direction = "down", duration = 50 }) {
   const createGroup = (groupIndex) => (
     <div
@@ -120,9 +114,6 @@ function MarqueeColumn({ images, direction = "down", duration = 50 }) {
   );
 }
 
-/* =========================================================
-   WHY SECTION DATA
-========================================================= */
 const whyItems = [
   {
     title: "STRATEGIC",
@@ -141,9 +132,6 @@ const whyItems = [
   },
 ];
 
-/* =========================================================
-   WHY STACK COMPONENT
-========================================================= */
 function WhyStack() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -151,20 +139,72 @@ function WhyStack() {
     offset: ["start start", "end end"],
   });
 
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  // ----- Timeline constants -----
+  const SHRINK_START = 0;
+  const SHRINK_END = 0.5;              // video container shrinks to right side
+  const VIDEO_FADE_START = 0.1;
+  const VIDEO_FADE_END = 0.4;          // video fades out completely
+  const IMAGE_START = 0.31;            // first image starts sliding up
+  const IMAGE_DURATION = 0.2;          // each image takes 0.2 of progress
+  const NUM_IMAGES = whyItems.length;
+
+  // Right box transforms: from full‑screen to right‑side card
+  const rightWidth = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vw", "40vw"]
+  );
+  const rightHeight = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vh", "60vh"]
+  );
+  const rightLeft = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0", "50vw"]
+  );
+  const rightTop = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0", "15vh"]
+  );
+
+  // Left text fades in as the box shrinks
+  const leftOpacity = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 1]
+  );
+  const leftX = useTransform(
+    scrollYProgress,
+    [0.1, 0.3],
+    [-80, 0]
+  );
+
+  // Video opacity
+  const videoOpacity = useTransform(
+    scrollYProgress,
+    [VIDEO_FADE_START, VIDEO_FADE_END],
+    [1, 0]
+  );
 
   return (
     <div
       ref={containerRef}
       className="relative h-[300vh] bg-white dark:bg-brown-900"
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center px-6 overflow-hidden">
-        <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
-          {/* TEXT SIDE */}
-          <div className="relative h-[280px] md:h-[320px] order-2 md:order-1">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* LEFT TEXT COLUMN */}
+        <motion.div
+          style={{ opacity: leftOpacity, x: leftX }}
+          className="relative z-20 flex items-center justify-center h-full w-1/2 p-8 md:p-12 pointer-events-none"
+        >
+          <div className="relative w-full h-[280px] md:h-[320px]">
             {whyItems.map((item, i) => {
-              const start = i * 0.28;
-              const end = start + 0.3;
+              // Match image timing
+              const start = IMAGE_START + i * IMAGE_DURATION;
+              const end = start + IMAGE_DURATION;
 
               const opacity = useTransform(
                 scrollYProgress,
@@ -174,17 +214,17 @@ function WhyStack() {
                   Math.max(0, end - 0.05),
                   Math.min(1, end + 0.02),
                 ],
-                [0, 1, 1, 0],
+                [0, 1, 1, 0]
               );
               const x = useTransform(
                 scrollYProgress,
                 [start, start + 0.06, end - 0.06, end],
-                [-80, 0, 0, 60],
+                [-80, 0, 0, 60]
               );
               const y = useTransform(
                 scrollYProgress,
                 [start, start + 0.06],
-                [20, 0],
+                [20, 0]
               );
 
               return (
@@ -206,69 +246,83 @@ function WhyStack() {
               );
             })}
           </div>
+        </motion.div>
 
-          {/* IMAGE & VIDEO STACK SIDE */}
-          <div className="relative h-[350px] md:h-[450px] rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2 bg-brown-950">
-            <motion.div
-              style={{ opacity: videoOpacity, zIndex: 0 }}
-              className="absolute inset-0"
+        {/* RIGHT BOX – full‑screen → right side */}
+        <motion.div
+          style={{
+            width: rightWidth,
+            height: rightHeight,
+            left: rightLeft,
+            top: rightTop,
+          }}
+          className="absolute z-10 rounded-2xl overflow-hidden shadow-2xl bg-brown-950"
+        >
+          {/* Video layer */}
+          <motion.div
+            style={{ opacity: videoOpacity, zIndex: 0 }}
+            className="absolute inset-0"
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              poster={whyItems[0].img}
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-                poster={whyItems[0].img}
+              <source src={videowhy} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-brown-950/20" />
+          </motion.div>
+
+          {/* Image layers – slide up from bottom with delay */}
+          {whyItems.map((item, i) => {
+            const start = IMAGE_START + i * IMAGE_DURATION;
+            const end = start + IMAGE_DURATION;
+
+            // y goes from 100% (bottom) to 0% (visible)
+            const y = useTransform(
+              scrollYProgress,
+              [start, end],
+              ["100%", "0%"]
+            );
+            const scale = useTransform(
+              scrollYProgress,
+              [start, start + 0.08],
+              [0.92, 1]
+            );
+            // opacity for a smooth entrance
+            const opacity = useTransform(
+              scrollYProgress,
+              [start, start + 0.06],
+              [0.6, 1]
+            );
+
+            return (
+              <motion.div
+                key={i}
+                style={{ y, scale, opacity, zIndex: i + 1 }}
+                className="absolute inset-0"
               >
-                <source src={videowhy} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-brown-950/20" />
-            </motion.div>
-
-            {whyItems.map((item, i) => {
-              const start = 0.05 + i * 0.25;
-              const end = start + 0.25;
-
-              const y = useTransform(
-                scrollYProgress,
-                [start, end],
-                ["100%", "0%"],
-              );
-              const scale = useTransform(
-                scrollYProgress,
-                [start, start + 0.12],
-                [0.9, 1],
-              );
-
-              return (
-                <motion.div
-                  key={i}
-                  style={{ y, scale, zIndex: i + 1 }}
-                  className="absolute inset-0"
-                >
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-brown-950/30" />
-                  <h3 className="absolute inset-0 flex items-center justify-center font-serif text-3xl md:text-5xl text-white tracking-wide">
-                    {item.title}
-                  </h3>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-brown-950/30" />
+                <h3 className="absolute inset-0 flex items-center justify-center font-serif text-3xl md:text-5xl text-white tracking-wide">
+                  {item.title}
+                </h3>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </div>
   );
 }
 
-/* =========================================================
-   SERVICES DATA
-========================================================= */
 const services = [
   {
     title: "PACKAGING DESIGN",
@@ -292,10 +346,6 @@ const services = [
   },
 ];
 
-/* =========================================================
-   SERVICES STACK — Gen Studio project style
-   Full-screen background + center vertical card + top title
-========================================================= */
 function ServicesStack() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -308,41 +358,38 @@ function ServicesStack() {
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-brown-950">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">
-        {/* BACKGROUND IMAGES — full bleed, cross-fade */}
-{services.map((service, i) => {
-  const start = i / count;
-  const end = (i + 1) / count;
+        {services.map((service, i) => {
+          const start = i / count;
+          const end = (i + 1) / count;
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, start + 0.05, end - 0.05, end],
-    [0, 1, 1, 0]
-  );
+          const opacity = useTransform(
+            scrollYProgress,
+            [start, start + 0.05, end - 0.05, end],
+            [0, 1, 1, 0]
+          );
+          const scale = useTransform(
+            scrollYProgress,
+            [start, end],
+            [1.1, 1.2]
+          );
 
-  const scale = useTransform(
-    scrollYProgress,
-    [start, end],
-    [1.1, 1.2]
-  );
+          return (
+            <motion.div
+              key={i}
+              style={{ opacity, scale }}
+              className="absolute inset-0 z-0"
+            >
+              <img
+                src={service.img}
+                alt={service.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-brown-950/60" />
+            </motion.div>
+          );
+        })}
 
-  return (
-    <motion.div
-      key={i}
-      style={{ opacity, scale }}
-      className="absolute inset-0 z-0"
-    >
-      <img
-        src={service.img}
-        alt={service.title}
-        className="w-full h-full object-cover"
-      />
-
-      <div className="absolute inset-0 bg-brown-950/60" />
-    </motion.div>
-  );
-})}
-
-        {/* TOP TITLE — cross-fades */}
+        {/* TOP TITLE */}
         <div className="relative z-20 flex-1 flex flex-col items-center justify-center pt-20">
           {services.map((service, i) => {
             const start = i / count;
@@ -351,12 +398,12 @@ function ServicesStack() {
             const opacity = useTransform(
               scrollYProgress,
               [start, start + 0.04, end - 0.04, end],
-              [0, 1, 1, 0],
+              [0, 1, 1, 0]
             );
             const y = useTransform(
               scrollYProgress,
               [start, start + 0.06, end - 0.06, end],
-              [-30, 0, 0, -30],
+              [-30, 0, 0, -30]
             );
 
             return (
@@ -373,7 +420,7 @@ function ServicesStack() {
           })}
         </div>
 
-        {/* CENTER VERTICAL CARD — layer by layer stack */}
+        {/* CENTER VERTICAL CARD */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="relative w-[45vw] md:w-[28vw] lg:w-[22vw] h-[55vh] md:h-[65vh] rounded-2xl overflow-hidden shadow-2xl bg-brown-900">
             {services.map((service, i) => {
@@ -383,17 +430,17 @@ function ServicesStack() {
               const y = useTransform(
                 scrollYProgress,
                 [start, end],
-                ["100%", "0%"],
+                ["100%", "0%"]
               );
               const scale = useTransform(
                 scrollYProgress,
                 [start, start + 0.08],
-                [0.92, 1],
+                [0.92, 1]
               );
               const opacity = useTransform(
                 scrollYProgress,
                 [start, start + 0.03],
-                [0.8, 1],
+                [0.8, 1]
               );
 
               return (
@@ -424,7 +471,7 @@ function ServicesStack() {
               const opacity = useTransform(
                 scrollYProgress,
                 [start, start + 0.03, end - 0.03, end],
-                [0, 1, 1, 0],
+                [0, 1, 1, 0]
               );
 
               return (
@@ -467,9 +514,6 @@ function ServicesStack() {
   );
 }
 
-/* =========================================================
-   HOME PAGE
-========================================================= */
 export default function Home() {
   const name = "MONA ASWAL";
 
