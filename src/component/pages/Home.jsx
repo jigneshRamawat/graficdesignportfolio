@@ -10,7 +10,7 @@ const videowhy = videow;
 
 const leftFloaters = [
   {
-    src: "https://imgs.search.brave.com/V1Cp9bOdJzbYTuyQqqhg5J_p8U_J2FVuq_RxxPn0JOk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjkx/NTcyOTc1L3Bob3Rv/L2Nvc21ldGljcy5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Wlc2SnpYYXM3RGlu/WkV6LTd5RDZSMlNW/LTlsWlZUMjNEVWxL/RnNwcExFdz0",
+    src: "https://imgs.search.brave.com/V1Cp9bOdJzbYTuyQqqhg5J_p8U_J2FVuq_RxxPn0JOk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly/mZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjkx/NTcyOTc1L3Bob3Rv/L2Nvc21ldGljcy5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Wlc2SnpYYXM3RGlu/WkV6LTd5RDZSMlNW/LTlsWlZUMjNEVWxL/RnNwcExFdz0",
     className: "w-20 h-28 md:w-28 md:h-36 lg:w-32 lg:h-40",
   },
   {
@@ -18,7 +18,7 @@ const leftFloaters = [
     className: "w-28 h-20 md:w-36 md:h-28 lg:w-44 lg:h-32",
   },
   {
-    src: "https://imgs.search.brave.com/QfOMKsPd_r14IQqEcWaMPMSvATJi8_mjzLgAzbWqVtc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmd1/aW0uY28udWsvaW1n/L21lZGlhL2NiNzk2/MDU0ZGI5OThlYzA2/MzE5NzcxODU0ZmYw/NTgwMGJmZTY3MTEv/M18wXzI0OTVfMTk5/Ni9tYXN0ZXIvMjQ5/NS5qcGc_d2lkdGg9/NDY1JmRwcj0xJnM9/bm9uZSZjcm9wPTU6/NA",
+    src: "https://imgs.search.brave.com/QfOMKsPd_r14IQqEcWaMPMSvATJi8_mjzLgAzbWqVtc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmd1/aW0uY28udWsvaW1n/L21lZGlhL2NlNzk2/MDU0ZGI5OThlYzA2/MzE5NzcxODU0ZmYw/NTgwMGJmZTY3MTEv/M18wXzI0OTVfMTk5/Ni9tYXN0ZXIvMjQ5/NS5qcGc_d2lkdGg9/NDY1JmRwcj0xJnM9/bm9uZSZjcm9wPTU6/NA",
     className: "w-20 h-28 md:w-28 md:h-40 lg:w-32 lg:h-48",
   },
   {
@@ -139,122 +139,141 @@ function WhyStack() {
     offset: ["start start", "end end"],
   });
 
-  // ----- Timeline constants -----
   const SHRINK_START = 0;
-  const SHRINK_END = 0.5;              // video container shrinks to right side
-  const VIDEO_FADE_START = 0.1;
-  const VIDEO_FADE_END = 0.4;          // video fades out completely
- const IMAGE_START = 0.30;
-const IMAGE_DURATION = 0.23;   // each image takes 0.2 of progress
-  const NUM_IMAGES = whyItems.length;
+  const SHRINK_END = 0.45;
+  const VIDEO_FADE_START = 0.05;
+  const VIDEO_FADE_END = 0.35;
+  
+  const IMAGE_START = 0.2;
+  const IMAGE_DURATION = 0.25; 
 
-  // Right box transforms: from full‑screen to right‑side card
- // Right box transforms
-const rightWidth = useTransform(
-  scrollYProgress,
-  [SHRINK_START, SHRINK_END],
-  ["100vw", "40vw"]
-);
+  const rightWidth = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vw", "48vw"]
+  );
 
-const rightHeight = useTransform(
-  scrollYProgress,
-  [SHRINK_START, SHRINK_END],
-  ["100vh", "60vh"]
-);
+  const rightHeight = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["100vh", "65vh"]
+  );
 
-const rightLeft = useTransform(
-  scrollYProgress,
-  [SHRINK_START, SHRINK_END],
-  ["0", "50vw"]
-);
+  const rightLeft = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0", "48vw"]
+  );
 
-const rightTop = useTransform(
-  scrollYProgress,
-  [SHRINK_START, SHRINK_END],
-  ["0", "15vh"]
-);
+  const rightTop = useTransform(
+    scrollYProgress,
+    [SHRINK_START, SHRINK_END],
+    ["0", "15vh"]
+  );
 
-// LEFT TEXT
-// Comes in → 100% → HOLD → fade out
-const leftOpacity = useTransform(
-  scrollYProgress,
-  [0.10, 0.20, 1],
-  [0, 1, 1]
-);
+  const leftOpacity = useTransform(
+    scrollYProgress,
+    [0.05, 0.15, 0.95, 1],
+    [0, 1, 1, 0.8]
+  );
 
-const leftX = useTransform(
-  scrollYProgress,
-  [0.10, 0.25],
-  [-80, 0]
-);
+  const leftX = useTransform(
+    scrollYProgress,
+    [0.05, 0.2],
+    [-40, 0]
+  );
 
-// Video opacity
-const videoOpacity = useTransform(
-  scrollYProgress,
-  [VIDEO_FADE_START, VIDEO_FADE_END],
-  [1, 0]
-);
+  const videoOpacity = useTransform(
+    scrollYProgress,
+    [VIDEO_FADE_START, VIDEO_FADE_END],
+    [1, 0]
+  );
 
   return (
     <div
       ref={containerRef}
-      className="relative h-[300vh] bg-white dark:bg-brown-900"
+      className="relative md:h-[300vh] bg-white dark:bg-brown-900"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* Mobile-Friendly Grid Layout for Small Screens, Sticky Desktop Scroll Layout */}
+      <div className="relative md:sticky top-0 md:h-screen w-full overflow-hidden flex flex-col md:flex-row items-center py-12 md:py-0">
+        
         {/* LEFT TEXT COLUMN */}
         <motion.div
           style={{ opacity: leftOpacity, x: leftX }}
-          className="relative z-20 flex items-center justify-center h-full w-1/2 p-8 md:p-12 pointer-events-none"
+          className="relative z-20 flex items-center justify-center w-full md:w-1/2 p-6 md:p-12"
         >
-          <div className="relative w-full h-[280px] md:h-[320px]">
+          {/* Desktop stacked animated view */}
+          <div className="hidden md:block relative w-full h-[300px]">
             {whyItems.map((item, i) => {
-              // Match image timing
               const start = IMAGE_START + i * IMAGE_DURATION;
               const end = start + IMAGE_DURATION;
 
               const opacity = useTransform(
                 scrollYProgress,
                 [
-                  Math.max(0, start - 0.08),
-                  Math.min(1, start + 0.05),
-                  Math.max(0, end - 0.09),
+                  Math.max(0, start - 0.05),
+                  start + 0.05,
+                  Math.max(0, end - 0.05),
                   Math.min(1, end + 0.02),
                 ],
                 [0, 1, 1, 0]
               );
+              
               const x = useTransform(
                 scrollYProgress,
-                [start, start + 0.06, end - 0.06, end],
-                [-90, 0, 0, 60]
+                [start, start + 0.05, end - 0.05, end],
+                [-40, 0, 0, 30]
               );
+              
               const y = useTransform(
                 scrollYProgress,
-                [start, start + 0.06],
-                [20, 0]
+                [start, start + 0.05],
+                [15, 0]
               );
 
               return (
                 <motion.div
                   key={i}
                   style={{ opacity, x, y }}
-                  className="absolute inset-0 flex flex-col justify-center text-center md:text-left"
+                  className="absolute inset-0 flex flex-col justify-center text-left"
                 >
                   <span className="text-terracotta text-xs tracking-[0.3em] font-medium mb-3">
                     0{i + 1} / 0{whyItems.length}
                   </span>
-                  <h3 className="font-serif text-4xl md:text-6xl text-brown-900 dark:text-beige-100 mb-4">
+                  <h3 className="font-serif text-5xl lg:text-6xl text-brown-900 dark:text-beige-100 mb-4">
                     {item.title}
                   </h3>
-                  <p className="text-brown-600 dark:text-beige-300 text-base md:text-lg leading-relaxed max-w-md mx-auto md:mx-0">
+                  <p className="text-brown-600 dark:text-beige-300 text-base lg:text-lg leading-relaxed max-w-md">
                     {item.desc}
                   </p>
                 </motion.div>
               );
             })}
           </div>
+
+          {/* Mobile standard stacked view */}
+          <div className="block md:hidden flex flex-col gap-12 w-full text-center">
+            {whyItems.map((item, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <span className="text-terracotta text-xs tracking-[0.3em] font-medium mb-2">
+                  0{i + 1} / 0{whyItems.length}
+                </span>
+                <h3 className="font-serif text-3xl text-brown-900 dark:text-beige-100 mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-brown-600 dark:text-beige-300 text-sm leading-relaxed max-w-sm mb-6">
+                  {item.desc}
+                </p>
+                <div className="w-full h-64 rounded-xl overflow-hidden shadow-lg">
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                </div>
+              </div>
+            ))}
+          </div>
+
         </motion.div>
 
-        {/* RIGHT BOX – full‑screen → right side */}
+        {/* RIGHT BOX – Desktop Sticky Image/Video Animation Panel */}
         <motion.div
           style={{
             width: rightWidth,
@@ -262,9 +281,8 @@ const videoOpacity = useTransform(
             left: rightLeft,
             top: rightTop,
           }}
-          className="absolute z-10 rounded-2xl overflow-hidden shadow-2xl bg-brown-950"
+          className="absolute z-10 rounded-2xl overflow-hidden shadow-2xl bg-brown-950 hidden md:block"
         >
-          {/* Video layer */}
           <motion.div
             style={{ opacity: videoOpacity, zIndex: 0 }}
             className="absolute inset-0"
@@ -282,27 +300,26 @@ const videoOpacity = useTransform(
             <div className="absolute inset-0 bg-brown-950/20" />
           </motion.div>
 
-          {/* Image layers – slide up from bottom with delay */}
           {whyItems.map((item, i) => {
             const start = IMAGE_START + i * IMAGE_DURATION;
             const end = start + IMAGE_DURATION;
 
-            // y goes from 100% (bottom) to 0% (visible)
             const y = useTransform(
               scrollYProgress,
               [start, end],
               ["100%", "0%"]
             );
+            
             const scale = useTransform(
               scrollYProgress,
-              [start, start + 0.08],
-              [0.92, 1]
+              [start, start + 0.05],
+              [0.95, 1]
             );
-            // opacity for a smooth entrance
+            
             const opacity = useTransform(
               scrollYProgress,
-              [start, start + 0.06],
-              [0.6, 1]
+              [start, start + 0.04],
+              [0.5, 1]
             );
 
             return (
@@ -317,13 +334,14 @@ const videoOpacity = useTransform(
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-brown-950/30" />
-                <h3 className="absolute inset-0 flex items-center justify-center font-serif text-3xl md:text-5xl text-white tracking-wide">
+                <h3 className="absolute inset-0 flex items-center justify-center font-serif text-5xl text-white tracking-wide">
                   {item.title}
                 </h3>
               </motion.div>
             );
           })}
         </motion.div>
+
       </div>
     </div>
   );
@@ -395,7 +413,6 @@ function ServicesStack() {
           );
         })}
 
-        {/* TOP TITLE */}
         <div className="relative z-20 flex-1 flex flex-col items-center justify-center pt-20">
           {services.map((service, i) => {
             const start = i / count;
@@ -416,9 +433,9 @@ function ServicesStack() {
               <motion.div
                 key={i}
                 style={{ opacity, y }}
-                className="absolute text-center"
+                className="absolute text-center px-4"
               >
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-wide drop-shadow-lg">
+                <h2 className="font-serif text-3xl md:text-6xl lg:text-7xl text-white tracking-wide drop-shadow-lg">
                   {service.title}
                 </h2>
               </motion.div>
@@ -426,9 +443,8 @@ function ServicesStack() {
           })}
         </div>
 
-        {/* CENTER VERTICAL CARD */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[45vw] md:w-[28vw] lg:w-[22vw] h-[55vh] md:h-[65vh] rounded-2xl overflow-hidden shadow-2xl bg-brown-900">
+          <div className="relative w-[75vw] md:w-[28vw] lg:w-[22vw] h-[45vh] md:h-[65vh] rounded-2xl overflow-hidden shadow-2xl bg-brown-900">
             {services.map((service, i) => {
               const start = i / count;
               const end = (i + 1) / count;
@@ -467,7 +483,6 @@ function ServicesStack() {
           </div>
         </div>
 
-        {/* BOTTOM INFO BAR */}
         <div className="relative z-20 pb-8 px-6 md:px-12">
           <div className="flex justify-between items-end border-t border-white/20 pt-6">
             {services.map((service, i) => {
@@ -526,10 +541,10 @@ export default function Home() {
   return (
     <main>
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-beige-100 dark:bg-brown-950 pt-24 pb-12">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-beige-100 dark:bg-brown-950 pt-28 pb-16 px-4">
         {/* CENTER PORTRAIT */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-          <div className="relative w-[85vw] md:w-[55vw] lg:w-[45vw] h-[75vh] md:h-[110vh]">
+          <div className="relative w-[92vw] md:w-[55vw] lg:w-[45vw] h-[65vh] md:h-[110vh]">
             <img
               src={heroBg}
               alt="Mona Aswal"
@@ -540,12 +555,12 @@ export default function Home() {
         </div>
 
         {/* LEFT MARQUEE */}
-        <div className="absolute left-0 top-0 w-[25vw] md:w-[23vw] lg:w-[22vw] h-full z-[2] overflow-hidden">
+        <div className="absolute left-0 top-0 w-[23vw] lg:w-[22vw] h-full z-[2] overflow-hidden hidden lg:block">
           <MarqueeColumn images={leftFloaters} direction="down" duration={24} />
         </div>
 
         {/* RIGHT MARQUEE */}
-        <div className="absolute right-0 top-0 w-[25vw] md:w-[23vw] lg:w-[22vw] h-full z-[2] overflow-hidden">
+        <div className="absolute right-0 top-0 w-[23vw] lg:w-[22vw] h-full z-[2] overflow-hidden hidden lg:block">
           <MarqueeColumn images={rightFloaters} direction="up" duration={34} />
         </div>
 
@@ -556,8 +571,8 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-32 z-[5] pointer-events-none bg-gradient-to-t from-beige-100 to-transparent dark:from-brown-950" />
 
         {/* CENTER TEXT */}
-        <div className="relative z-10 text-center px-4 pt-[25rem] max-w-5xl mx-auto pointer-events-none">
-          <motion.h1 className="font-serif italic text-6xl md:text-8xl lg:text-[7rem] text-brown-900 dark:text-beige-100 leading-[0.9] mb-4 drop-shadow-lg flex justify-center flex-wrap">
+        <div className="relative z-10 text-center pt-[10rem] md:pt-[25rem] max-w-5xl mx-auto pointer-events-none">
+          <motion.h1 className="font-serif italic text-4xl sm:text-6xl md:text-8xl lg:text-[7rem] lg:mt-1 sm:mt-1 mt-[25rem] text-brown-900 dark:text-beige-100 leading-[0.9] mb-4 drop-shadow-lg flex justify-center flex-wrap">
             {name.split("").map((letter, index) => (
               <motion.span
                 key={index}
@@ -583,7 +598,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-serif text-3xl md:text-5xl lg:text-7xl text-brown-800 dark:text-beige-200 mb-8 drop-shadow-md"
+            className="font-serif text-xl sm:text-3xl md:text-5xl lg:text-7xl text-brown-800 dark:text-beige-200 mb-6 md:mb-8 drop-shadow-md"
           >
             Graphic Designer
           </motion.h2>
@@ -592,7 +607,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="max-w-xl mx-auto text-brown-900 dark:text-beige-100 leading-relaxed font-medium drop-shadow-sm"
+            className="max-w-xl mx-auto text-xs sm:text-sm md:text-base text-brown-900 dark:text-beige-100 leading-relaxed font-medium drop-shadow-sm px-4"
           >
             8 years crafting premium visuals for beauty & FMCG brands.
             Specializing in packaging, e-commerce, and campaign design for
@@ -604,8 +619,8 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 left-6 md:left-12 z-10"
+          transition={{ delay: 1, duration:  1}}
+          className="absolute bottom-6 left-6 md:left-12 z-10 hidden sm:block"
         >
           <p className="text-xs tracking-[0.2em] text-brown-600 dark:text-beige-400 font-medium">
             VISUAL STORIES
@@ -614,13 +629,13 @@ export default function Home() {
       </section>
 
       {/* ==================== WHY HEADER ==================== */}
-      <section className="pt-24 md:pt-40 px-6 bg-white dark:bg-brown-900">
-        <div className="max-w-6xl mx-auto text-center mb-12 md:mb-0">
+      <section className="pt-20 md:pt-40 px-6 bg-white dark:bg-brown-900">
+        <div className="max-w-6xl mx-auto text-center  md:mb-0">
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0.5 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-terracotta tracking-[0.3em] text-sm font-medium mb-8"
+            className="text-terracotta tracking-[0.3em] text-sm font-medium mb-6"
           >
             WHY MONA ASWAL
           </motion.p>
@@ -628,7 +643,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif text-4xl md:text-6xl lg:text-7xl text-brown-900 dark:text-beige-100 mb-6 leading-tight"
+            className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-brown-900 dark:text-beige-100 mb-6 leading-tight"
           >
             Skip traditional agencies.
             <br />
@@ -640,7 +655,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-brown-400 dark:text-beige-500 tracking-wide text-sm max-w-2xl mx-auto"
+            className="text-brown-400 dark:text-beige-500 tracking-wide text-xs md:text-sm max-w-2xl mx-auto px-2"
           >
             CREATING SCALABLE DESIGN SYSTEMS THAT REDUCE PRODUCTION COSTS,
             ACCELERATE CAMPAIGNS.
@@ -652,13 +667,13 @@ export default function Home() {
       <WhyStack />
 
       {/* ==================== SERVICES HEADER ==================== */}
-      <section className="py-24 md:py-32 px-6 bg-beige-100 dark:bg-brown-950">
+      <section className="py-20 md:py-32 px-6 bg-beige-100 dark:bg-brown-950">
         <div className="max-w-6xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-terracotta tracking-[0.3em] text-sm font-medium mb-8"
+            className="text-terracotta tracking-[0.3em] text-sm font-medium mb-6"
           >
             EXPERTISE
           </motion.p>
@@ -666,7 +681,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif italic text-5xl md:text-7xl lg:text-8xl text-brown-900 dark:text-beige-100 mb-4"
+            className="font-serif italic text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-brown-900 dark:text-beige-100 mb-4"
           >
             SERVICES
           </motion.h2>
@@ -674,7 +689,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-terracotta font-serif text-xl md:text-2xl"
+            className="text-terracotta font-serif text-lg md:text-2xl"
           >
             SINCE 2017
           </motion.p>
@@ -685,7 +700,7 @@ export default function Home() {
       <ServicesStack />
 
       {/* ==================== CTA ==================== */}
-      <section className="py-24 px-6 bg-beige-100 dark:bg-brown-950 text-center">
+      <section className="py-20 px-6 bg-beige-100 dark:bg-brown-950 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
