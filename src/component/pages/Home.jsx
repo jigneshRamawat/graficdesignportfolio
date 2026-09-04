@@ -146,28 +146,10 @@ function WhyStack() {
   const VIDEO_FADE_START = 0.05;
   const VIDEO_FADE_END = 0.35;
 
-  const IMAGE_START = 0.1;
-  const IMAGE_DURATION = 0.25;
+  const IMAGE_START = 0.01;
+  const IMAGE_DURATION = 0.2;
 
-  /*
-  =====================================================
-  RESPONSIVE PANEL
-  =====================================================
-
-  Desktop:
-  Full screen
-      ↓
-  48vw width
-  65vh height
-  positioned on right
-
-  Mobile:
-  Full screen
-      ↓
-  92vw width
-  52vh height
-  CENTERED
-  */
+ 
 
   const isMobile =
     typeof window !== "undefined" &&

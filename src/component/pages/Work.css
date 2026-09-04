@@ -14,7 +14,6 @@
   align-items: center;
   background: #111;
   color: #fff;
-  
   border-radius: 999px;
   gap: 30px;
 }
@@ -153,7 +152,8 @@
   object-fit: cover;
 }
 
-/* Mobile Progress indicators */
+/* Mobile Progress indicators (irrelevant on desktop; only meaningful
+   while the pinned section is visible) */
 .mobile-progress {
   display: none;
   position: absolute;
@@ -183,3 +183,205 @@
   }
 }
 
+/* ============================================================
+   NEW ELEMENTS — hidden by default, shown only in mobile query.
+   Pure additions; do not touch any existing desktop selector.
+============================================================ */
+.mobile-nav-pill {
+  display: none;
+}
+
+.mobile-story {
+  display: none;
+}
+
+/* ============================================================
+   MOBILE ONLY (<=768px) — every mobile-specific rule lives here.
+   Nothing above this block was changed from the original desktop CSS.
+============================================================ */
+@media (max-width: 768px) {
+
+  /* overflow fix belongs here only — on desktop this ancestor rule
+     was breaking position: sticky on .reviews-sticky */
+  .work-page {
+    overflow-x: hidden;
+  }
+
+  /* swap which layout is visible */
+  .reviews-scroll {
+    display: none;
+  }
+  .mobile-progress {
+    display: none;
+  }
+  .mobile-story {
+    display: block;
+    padding: 0 4vw 10vh;
+  }
+
+  /* pill nav header */
+  .mobile-nav-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #111;
+    color: #fff;
+    border-radius: 999px;
+    margin: 16px 16px 0;
+    padding: 10px 14px;
+  }
+
+  .nav-pill-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #222;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-avatar-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #888;
+    display: block;
+  }
+
+  .nav-pill-logo {
+    font-family: sans-serif;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+  }
+
+  .nav-pill-hamburger {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #d32f2f;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .nav-pill-hamburger span {
+    width: 12px;
+    height: 2px;
+    background: #fff;
+    display: block;
+  }
+
+  /* header (editorial headline area) */
+  .work-header {
+    padding: 24px 6vw 16px;
+  }
+
+  .work-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 12px;
+    text-align: left;
+  }
+
+  .work-title h1 {
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+    line-height: 1.05;
+    order: 2;
+  }
+
+  .work-title h1 br {
+    display: none;
+  }
+
+  .title-small.left-title {
+    order: 1;
+    font-size: 0.75rem;
+  }
+
+  .title-small.right-title {
+    order: 3;
+    font-size: 0.75rem;
+  }
+
+  .subtitle-trusted {
+    text-align: left;
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+
+  /* stacked project sections */
+  .mobile-project {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14vh;
+  }
+
+  .mobile-project:first-child {
+    margin-top: 6vh;
+  }
+
+  .mobile-block {
+    padding: 0 3vw;
+    margin-bottom: 6vh;
+  }
+
+  .mobile-side-label {
+    position: static;
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: #888;
+    font-family: sans-serif;
+    margin-bottom: 14px;
+  }
+
+  .mobile-stat {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+    color: #d32f2f;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .mobile-headline {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 16px 0;
+    color: #111;
+  }
+
+  .mobile-headline-italic {
+    color: #d32f2f;
+  }
+
+  .mobile-support-text {
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+    font-style: italic;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .mobile-reviewer {
+    margin-top: 20px;
+    justify-content: flex-start;
+  }
+
+  .mobile-image {
+    width: 92vw;
+    max-width: 92vw;
+    margin: 0 auto 6vh;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+}

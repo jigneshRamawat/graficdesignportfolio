@@ -101,19 +101,18 @@ function WorkContent() {
   });
 
   return (
-    <main className="work-page">
-      {/* ================= HEADER ================= */}
-      <header className="work-header">
-        
-        <div className="work-title">
+    <main className="work-page pt-10">
+      
+      <header className="work-header ">
+        <div className="work-title pt-10">
           <span className="title-small left-title">REAL WORLD</span>
-          <h1 className="text-3xl">My Work For Real World Clients</h1>
+          <h1 className="text-3xl">My Work <br /><br /><br /> For Real World Clients</h1>
           <span className="title-small right-title">FROM CLIENTS</span>
         </div>
-        <p className="subtitle-trusted">TRUSTED BY BRANDS FOR PREMIUM AI VISUALS AND CREATIVE QUALITY.</p>
+        <p className="subtitle-trusted pt-10">TRUSTED BY BRANDS FOR PREMIUM AI VISUALS AND CREATIVE QUALITY.</p>
       </header>
 
-      {/* ================= SCROLL SECTION ================= */}
+      {/* ================= DESKTOP: PINNED SCROLL SECTION (unchanged) ================= */}
       <section
         ref={containerRef}
         className="reviews-scroll"
@@ -135,7 +134,7 @@ function WorkContent() {
             <Reviews projects={projects} progress={progress} />
           </div>
 
-          {/* MOBILE INDICATOR */}
+          {/* MOBILE INDICATOR (only relevant while pinned section is visible) */}
           <div className="mobile-progress">
             {projects.map((project, index) => (
               <span key={project.brand} className={activeIndex === index ? "active" : ""} />
@@ -143,12 +142,19 @@ function WorkContent() {
           </div>
         </div>
       </section>
+
+      {/* ================= MOBILE: EDITORIAL STACKED STORY (mobile only) ================= */}
+      <section className="mobile-story">
+        {projects.map((project, index) => (
+          <MobileProjectStory key={project.brand} project={project} index={index} />
+        ))}
+      </section>
     </main>
   );
 }
 
 /* ============================================================
-   4. SUB-COMPONENTS
+   4. DESKTOP SUB-COMPONENTS (unchanged)
 ============================================================ */
 function Results({ projects, progress }) {
   return (
@@ -222,7 +228,54 @@ function ReviewItem({ project, index, progress }) {
 }
 
 /* ============================================================
-   5. DEFAULT EXPORT (Wrapped with ThemeProvider)
+   5. MOBILE-ONLY SUB-COMPONENT
+   Renders one project as: RESULTS block -> image -> REVIEW block,
+   using a simple whileInView reveal (not scroll-linked pinning).
+============================================================ */
+function MobileProjectStory({ project, index }) {
+  const fadeUp = {
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.3 },
+    transition: { duration: 0.7, ease: "easeOut" },
+  };
+
+  return (
+    <div className="mobile-project">
+      {/* RESULTS block */}
+      <motion.div className="mobile-block mobile-results" {...fadeUp}>
+        <span className="side-label mobile-side-label">RESULTS</span>
+        <div className="mobile-stat">{project.resultNumber}</div>
+        <h3 className="mobile-headline">{project.resultTitle}</h3>
+        <p className="mobile-support-text">{project.resultText}</p>
+      </motion.div>
+
+      <motion.img
+        src={project.image}
+        alt={project.brand}
+        className="mobile-image"
+        initial={{ opacity: 0, scale: 1.04 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+
+      {/* REVIEW block */}
+      <motion.div className="mobile-block mobile-review" {...fadeUp}>
+        <span className="side-label mobile-side-label">REVIEW</span>
+        <h3 className="mobile-headline mobile-headline-italic">{project.reviewTitle}</h3>
+        <p className="mobile-support-text">{project.reviewText}</p>
+        <div className="review-person mobile-reviewer">
+          <div className="review-avatar">{project.reviewer.charAt(0)}</div>
+          <span>{project.reviewer}</span>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ============================================================
+   6. DEFAULT EXPORT (Wrapped with ThemeProvider)
 ============================================================ */
 export default function Work() {
   return (
