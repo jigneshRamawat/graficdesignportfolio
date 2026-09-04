@@ -1,5 +1,13 @@
 import { motion } from 'framer-motion';
 import Footer from '../Footer';
+import {
+  Image,
+  PenTool,
+  Sparkles,
+  Package,
+  ShoppingBag,
+  Award,
+} from "lucide-react";
 
 const experience = [
   {
@@ -23,14 +31,37 @@ const experience = [
 ];
 
 const skills = [
-  { name: 'Adobe Photoshop', level: 'Expert' },
-  { name: 'Adobe Illustrator', level: 'Expert' },
-  { name: 'Adobe Firefly', level: 'Advanced' },
-  { name: 'Packaging Design', level: 'Expert' },
-  { name: 'E-commerce Design', level: 'Expert' },
-  { name: 'Brand Identity', level: 'Advanced' },
+  {
+    name: "Adobe Photoshop",
+    level: "Expert",
+    icon: Image,
+  },
+  {
+    name: "Adobe Illustrator",
+    level: "Expert",
+    icon: PenTool,
+  },
+  {
+    name: "Adobe Firefly",
+    level: "Advanced",
+    icon: Sparkles,
+  },
+  {
+    name: "Packaging Design",
+    level: "Expert",
+    icon: Package,
+  },
+  {
+    name: "E-commerce Design",
+    level: "Expert",
+    icon: ShoppingBag,
+  },
+  {
+    name: "Brand Identity",
+    level: "Advanced",
+    icon: Award,
+  },
 ];
-
 const categories = ['Haircare', 'Makeup', 'Skincare Retail', 'Professional Salon', 'Skin Science'];
 
 export default function About() {
@@ -113,15 +144,30 @@ export default function About() {
           <div>
             <h3 className="font-serif text-3xl text-brown-900 dark:text-beige-100 mb-8">Tools & Skills</h3>
             <div className="space-y-4">
-              {skills.map((skill) => (
-                <div
-                  key={skill.name}
-                  className="flex justify-between items-center py-4 border-b border-beige-300 dark:border-brown-800"
-                >
-                  <span className="text-brown-800 dark:text-beige-200 font-medium">{skill.name}</span>
-                  <span className="text-terracotta text-sm tracking-wide">{skill.level}</span>
-                </div>
-              ))}
+{skills.map((skill) => {
+  const Icon = skill.icon;
+
+  return (
+    <div
+      key={skill.name}
+      className="flex items-center gap-4 py-4 border-b border-beige-300 dark:border-brown-800"
+    >
+      <Icon
+        size={28}
+        strokeWidth={1.5}
+        className="text-terracotta"
+      />
+
+      <span className="flex-1 text-brown-800 dark:text-beige-200 font-medium">
+        {skill.name}
+      </span>
+
+      <span className="text-terracotta text-sm tracking-wide">
+        {skill.level}
+      </span>
+    </div>
+  );
+})}
             </div>
           </div>
           <div className="bg-brown-900 dark:bg-brown-800 rounded-2xl p-10 text-beige-100 flex flex-col justify-center">

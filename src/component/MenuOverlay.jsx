@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Home, Briefcase, User, Mail } from 'lucide-react';
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'WORK', path: '/work' },
@@ -10,7 +10,7 @@ const navLinks = [
 
 export default function MenuOverlay({ onClose, currentPath }) {
   return (
-    <motion.div
+    <motion.div onClick={onClose}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
