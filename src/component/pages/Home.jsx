@@ -10,47 +10,47 @@ const videowhy = videow;
 
 const leftFloaters = [
   {
-    src: "https://imgs.search.brave.com/V1Cp9bOdJzbYTuyQqqhg5J_p8U_J2FVuq_RxxPn0JOk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly/mZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjkx/NTcyOTc1L3Bob3Rv/L2Nvc21ldGljcy5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Wlc2SnpYYXM3RGlu/WkV6LTd5RDZSMlNW/LTlsWlZUMjNEVWxL/RnNwcExFdz0",
-    className: "w-20 h-28 md:w-28 md:h-36 lg:w-32 lg:h-40",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/e9dfc8182177123.6528d3fc3e2a7.gif",
+    className: "w-20 h-28 md:w-28 md:h-50 lg:w-32 lg:h-auto ",
   },
   {
-    src: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80",
-    className: "w-28 h-20 md:w-36 md:h-28 lg:w-44 lg:h-32",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/a34f68235601925.68dabc45a02db.gif",
+    className: "w-28 h-20 md:w-36 md:h-28 lg:w-44 lg:h-34",
   },
   {
-    src: "https://imgs.search.brave.com/QfOMKsPd_r14IQqEcWaMPMSvATJi8_mjzLgAzbWqVtc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmd1/aW0uY28udWsvaW1n/L21lZGlhL2NlNzk2/MDU0ZGI5OThlYzA2/MzE5NzcxODU0ZmYw/NTgwMGJmZTY3MTEv/M18wXzI0OTVfMTk5/Ni9tYXN0ZXIvMjQ5/NS5qcGc_d2lkdGg9/NDY1JmRwcj0xJnM9/bm9uZSZjcm9wPTU6/NA",
-    className: "w-20 h-28 md:w-28 md:h-40 lg:w-32 lg:h-48",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/72b088181666185.651fcec369283.jpg",
+    className: "w-20 h-28 md:w-28 md:h-40 lg:w-32 lg:h-35",
   },
   {
-    src: "https://imgs.search.brave.com/_OYv3tX7SZ_zOFL4O98PwaPlxv9uwgRYmGwg-o3mF8g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMudm9ndWUuY29t/L3Bob3Rvcy82YThl/ZjgwNTdlOTdmYjI0/MGU3MTQ2NmYvNDoz/L3dfMTYwMCxjX2xp/bWl0LzA4MjUyNl9h/Z2VzcG90c19wb2xh/cm9pZF9iZWF1dHlo/b2xkaW5nLmpwZw",
-    className: "w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/c122a2179893519.6503c9f0ed848.jpg",
+    className: "w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-50",
   },
   {
-    src: "https://imgs.search.brave.com/yV5Hd1Qe5rCEKJWaNoZX9i71agMU-u_d-D1Jj_goFhE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNDkv/OTY5LzYxNi9zbWFs/bC9hLXNlcmVuZS1h/bmQtY296eS1zY2Vu/ZS1mZWF0dXJpbmct/eW91bmctd29tYW4t/d2l0aC1zb2Z0LW1h/a2V1cC1zdXJyb3Vu/ZGVkLWJ5LWJlYXV0/eS1wcm9kdWN0cy1h/bmQtZmVzdGl2ZS1k/ZWNvcmF0aW9ucy1w/aG90by5qcGc",
-    className: "w-28 h-36 md:w-36 md:h-44 lg:w-40 lg:h-52",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/a57158177422847.64d5e3dc20114.jpg",
+    className: "w-28 h-36 md:w-36 md:h-44 lg:w-40 lg:h-40",
   },
 ];
 
 const rightFloaters = [
   {
-    src: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80",
-    className: "w-24 h-32 md:w-32 md:h-40 lg:w-40 lg:h-48",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/c10d6c162510421.63d75bc1396df.jpg",
+    className: "w-24 h-32 md:w-32 md:h-40 lg:w-40 lg:h-auto",
   },
   {
-    src: "https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=500&q=80",
-    className: "w-20 h-24 md:w-28 md:h-32 lg:w-32 lg:h-36",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/6057f8151702743.6310947a5843e.jpg",
+    className: "w-20 h-24 md:w-28 md:h-32 lg:w-32 lg:h-auto",
   },
   {
-    src: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=500&q=80",
-    className: "w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/337e98151011043.6304ad5c136af.jpg",
+    className: "w-28 h-36 md:w-32 md:h-44 lg:w-100 lg:h-auto",
   },
   {
-    src: "https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=500&q=80",
-    className: "w-24 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/32398a148635523.62d8ef8e6ec34.jpg",
+    className: "w-24 h-28 md:w-36 md:h-36 lg:w-100 lg:h-auto",
   },
   {
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80",
-    className: "w-28 h-20 md:w-40 md:h-28 lg:w-44 lg:h-32",
+    src: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/18256c148644563.62d9149fd58b4.jpg",
+    className: "w-28 h-20 md:w-40 md:h-28 lg:w-44 lg:h-auto",
   },
 ];
 
@@ -117,17 +117,17 @@ function MarqueeColumn({ images, direction = "down", duration = 50 }) {
 const whyItems = [
   {
     title: "STRATEGIC",
-    img: "https://imgs.search.brave.com/7hhuaN9XErWaoje9f0budeCmda0lbknTbvA6QcOYaH8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmd1/aW0uY28udWsvaW1n/L21lZGlhL2NlNThm/YTQwNWUxYWIyZGU3/YzAzNTE5OGE0MGY1/ZDRiMjYyZjIwODYv/MF8wXzUwMDBfNDAw/MC9tYXN0ZXIvNTAw/MC5qcGc_d2lkdGg9/NDY1JmRwcj0xJnM9/bm9uZSZjcm9wPTU6/NA",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/407e00146586979.62b303109c6a1.jpg",
     desc: "Every design decision is rooted in market research and consumer psychology to maximize shelf impact and brand recall.",
   },
   {
     title: "CREATIVE",
-    img: "https://imgs.search.brave.com/v4xHqQwJauNB364mSfXilxy4zpuwXm_QV2C8awB1V9Y/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ncm91/cC1iZWF1dHktcHJv/ZHVjdHMtYXJyYW5n/ZWQtY2lyY3VsYXIt/cGVkZXN0YWwtdmFy/aW91cy10dWJlcy1i/cnVzaGVzLXBvc2l0/aW9uZWQtYXJvdW5k/LWNlbnRlcnBpZWNl/LXNvZnQtNDIzNDUz/MTU5LmpwZw",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/225778142870939.626fbcc9d5fb2.jpg",
     desc: "Blending skin-science aesthetics with bold visual storytelling for unforgettable beauty brand moments.",
   },
   {
     title: "CONSISTENT",
-    img: "https://imgs.search.brave.com/_a7PIL1aI0kQDnBsDLZjUjwwtrievRR3Z2WQ6LKoJUU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9iZWF1/dHliYXNrZXRzLmlu/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIy/LzA2L0FydGJvYXJk/LTEtMzAweDMwMC53/ZWJw",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/6a8168141503259.625548e274f6b.jpg",
     desc: "Cohesive design systems that maintain brand integrity across packaging, digital, and retail touchpoints.",
   },
 ];
@@ -667,22 +667,22 @@ function WhyStack() {
 const services = [
   {
     title: "PACKAGING DESIGN",
-    img: "https://imgs.search.brave.com/V1Cp9bOdJzbYTuyQqqhg5J_p8U_J2FVuq_RxxPn0JOk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjkx/NTcyOTc1L3Bob3Rv/L2Nvc21ldGljcy5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Wlc2SnpYYXM3RGlu/WkV6LTd5RDZSMlNW/LTlsWlZUMjNEVWxL/RnNwcExFdz0",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/6aafa8235601925.68dabc45a0823.gif",
     category: "FMCG / BEAUTY",
   },
   {
     title: "E-COMMERCE DESIGN",
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/9d2a2c123821755.60f6bfe2592a2.jpg",
     category: "DIGITAL / RETAIL",
   },
   {
     title: "CAMPAIGN IMAGERY",
-    img: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=80",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/b42937120847607.60b9b1b4cfe76.jpg",
     category: "BRAND / VISUAL",
   },
   {
     title: "BRAND IDENTITY",
-    img: "https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=800&q=80",
+    img: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/f858ab135075989.61e13695921e6.jpg",
     category: "SYSTEM / DESIGN",
   },
 ];
@@ -723,7 +723,7 @@ function ServicesStack() {
               <img
                 src={service.img}
                 alt={service.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover bg-center"
               />
               <div className="absolute inset-0 bg-brown-950/60" />
             </motion.div>
@@ -760,8 +760,8 @@ function ServicesStack() {
           })}
         </div>
 
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[75vw] md:w-[28vw] lg:w-[22vw] h-[45vh] md:h-[65vh] rounded-2xl overflow-hidden shadow-2xl bg-brown-900">
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none ">
+          <div className="relative w-[75vw] md:w-[28vw] lg:w-[45vw] h-[45vh]  md:h-[65vh]  rounded-2xl  overflow-hidden shadow-2xl bg-brown-900">
             {services.map((service, i) => {
               const start = i / count;
               const end = (i + 1) / count;
@@ -779,14 +779,14 @@ function ServicesStack() {
               const opacity = useTransform(
                 scrollYProgress,
                 [start, start + 0.03],
-                [0.8, 1]
+                [0, 1]
               );
 
               return (
                 <motion.div
                   key={i}
                   style={{ y, scale, opacity, zIndex: i + 1 }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 "
                 >
                   <img
                     src={service.img}
