@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
+import monaimg from '../../img/mona.png'
 
 import {
   motion,
@@ -17,10 +18,6 @@ import {
 } from "lucide-react";
 
 import Footer from "../Footer";
-
-/* ============================================================
-   ANIMATION PRESETS
-============================================================ */
 
 const easeLuxury = [0.25, 0.1, 0.25, 1];
 
@@ -51,10 +48,6 @@ const fadeUpItem = {
 };
 
 
-/* ============================================================
-   HERO
-   WATER DROP / LIQUID LENS EFFECT
-============================================================ */
 
 function ContactHero() {
   const containerRef = useRef(null);
@@ -273,7 +266,7 @@ function ContactHero() {
       >
 
         <motion.div
-          className="absolute inset-[-20px]"
+          className="absolute inset-[-60px]"
           style={{
             x: imgX,
             y: imgY,
@@ -281,13 +274,13 @@ function ContactHero() {
         >
 
           <img
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1920&q=90"
+            src={monaimg}
             alt="Creative Director Editorial Portrait"
             className="
               w-full
               h-full
               object-cover
-              object-center
+              object-top
             "
             loading="eager"
           />
@@ -593,31 +586,6 @@ function ContactHero() {
         "
       >
 
-        <motion.p
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-            delay: 0.3,
-          }}
-          className="
-            text-white/70
-            tracking-[0.4em]
-            text-[10px]
-            md:text-xs
-            font-medium
-            mb-8
-            uppercase
-          "
-        >
-          Human × Design
-        </motion.p>
 
 
         <h1
@@ -630,40 +598,6 @@ function ContactHero() {
           "
         >
 
-          {[
-            "LET'S",
-            "CREATE",
-            "TOGETHER",
-          ].map((word, i) => (
-
-            <motion.span
-              key={word}
-              initial={{
-                opacity: 0,
-                y: 60,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 1.2,
-                delay: 0.5 + i * 0.15,
-                ease: easeLuxury,
-              }}
-              className="
-                block
-                text-6xl
-                sm:text-7xl
-                md:text-8xl
-                lg:text-[9rem]
-                xl:text-[10rem]
-              "
-            >
-              {word}
-            </motion.span>
-
-          ))}
 
         </h1>
 
@@ -672,55 +606,6 @@ function ContactHero() {
             HERO CTA
         ================================================ */}
 
-        <motion.a
-          href="#contact-form"
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            delay: 1.5,
-            duration: 0.8,
-          }}
-          className="
-            pointer-events-auto
-            mt-10
-            group
-            inline-flex
-            items-center
-            gap-3
-            rounded-full
-            border
-            border-white/30
-            bg-white/10
-            backdrop-blur-md
-            px-7
-            py-3
-            text-[10px]
-            tracking-[0.3em]
-            text-white
-            uppercase
-            hover:bg-white
-            hover:text-brown-900
-            transition-all
-            duration-500
-          "
-        >
-          Start A Project
-
-          <ArrowRight
-            size={15}
-            strokeWidth={1.5}
-            className="
-              group-hover:translate-x-1
-              transition-transform
-            "
-          />
-        </motion.a>
 
       </motion.div>
 
