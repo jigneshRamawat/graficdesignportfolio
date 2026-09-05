@@ -149,8 +149,6 @@ function WhyStack() {
   const IMAGE_START = 0.01;
   const IMAGE_DURATION = 0.2;
 
- 
-
   const isMobile =
     typeof window !== "undefined" &&
     window.innerWidth < 768;
@@ -185,17 +183,7 @@ function WhyStack() {
 
   /* =====================================================
      MOBILE VALUES
-  =====================================================
-
-  IMPORTANT:
-  92vw width means:
-
-  100vw - 92vw = 8vw
-
-  8vw / 2 = 4vw
-
-  So left = 4vw gives PERFECT CENTER.
-  */
+  ===================================================== */
 
   const mobileWidth = useTransform(
     scrollYProgress,
@@ -488,15 +476,6 @@ function WhyStack() {
 
         {/* =================================================
             RIGHT / IMAGE PANEL
-
-            MOBILE:
-            width 92vw
-            left 4vw
-            = CENTER
-
-            DESKTOP:
-            width 48vw
-            left 48vw
         ================================================= */}
 
         <motion.div
@@ -568,7 +547,7 @@ function WhyStack() {
 
 
           {/* =================================================
-              SEQUENTIAL IMAGES
+              SEQUENTIAL IMAGES — NO OPACITY, NO OVERLAY
           ================================================= */}
 
           {whyItems.map((item, i) => {
@@ -601,23 +580,12 @@ function WhyStack() {
               [0.95, 1]
             );
 
-            /* ------------------------------
-               IMAGE OPACITY
-            ------------------------------ */
-
-            const opacity = useTransform(
-              scrollYProgress,
-              [start, start + 0.04],
-              [0.5, 1]
-            );
-
             return (
               <motion.div
                 key={i}
                 style={{
                   y,
                   scale,
-                  opacity,
                   zIndex: i + 1,
                 }}
                 className="
@@ -644,14 +612,7 @@ function WhyStack() {
                   "
                 />
 
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    bg-brown-950/40
-                    md:bg-brown-950/30
-                  "
-                />
+                {/* OVERLAY REMOVED — PURE IMAGE */}
 
               </motion.div>
             );
@@ -686,7 +647,6 @@ const services = [
     category: "SYSTEM / DESIGN",
   },
 ];
-
 function ServicesStack() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -699,14 +659,17 @@ function ServicesStack() {
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-brown-950">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">
+        {/* =================================================
+            BACKGROUND IMAGES — SLIDE UP, NO OPACITY
+        ================================================= */}
         {services.map((service, i) => {
           const start = i / count;
           const end = (i + 1) / count;
 
-          const opacity = useTransform(
+          const y = useTransform(
             scrollYProgress,
-            [start, start + 0.05, end - 0.05, end],
-            [0, 1, 1, 0]
+            [start, end],
+            [i === 0 ? "0%" : "100%", "0%"]
           );
           const scale = useTransform(
             scrollYProgress,
@@ -717,19 +680,23 @@ function ServicesStack() {
           return (
             <motion.div
               key={i}
-              style={{ opacity, scale }}
-              className="absolute inset-0 z-0"
+              style={{ y, scale, zIndex: i }}
+              className="absolute inset-0"
             >
               <img
                 src={service.img}
                 alt={service.title}
                 className="w-full h-full object-cover bg-center"
               />
-              <div className="absolute inset-0 bg-brown-950/60" />
+              {/* Subtle edge gradient for text readability — NOT a solid dark wash */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30" />
             </motion.div>
           );
         })}
 
+        {/* =================================================
+            TITLE TEXT
+        ================================================= */}
         <div className="relative z-20 flex-1 flex flex-col items-center justify-center pt-20">
           {services.map((service, i) => {
             const start = i / count;
@@ -752,7 +719,7 @@ function ServicesStack() {
                 style={{ opacity, y }}
                 className="absolute text-center px-4"
               >
-                <h2 className="font-serif text-3xl md:text-6xl lg:text-7xl text-white tracking-wide drop-shadow-lg">
+                <h2 className="font-serif text-3xl md:text-6xl lg:text-7xl text-white tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                   {service.title}
                 </h2>
               </motion.div>
@@ -760,8 +727,11 @@ function ServicesStack() {
           })}
         </div>
 
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none ">
-          <div className="relative w-[75vw] md:w-[28vw] lg:w-[45vw] h-[45vh]  md:h-[65vh]  rounded-2xl  overflow-hidden shadow-2xl bg-brown-900">
+        {/* =================================================
+            CENTER CARD — PURE IMAGES, NO OPACITY, NO OVERLAY
+        ================================================= */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="relative w-[75vw] md:w-[28vw] lg:w-[45vw] h-[45vh] md:h-[65vh] rounded-2xl overflow-hidden shadow-2xl bg-brown-900">
             {services.map((service, i) => {
               const start = i / count;
               const end = (i + 1) / count;
@@ -769,37 +739,35 @@ function ServicesStack() {
               const y = useTransform(
                 scrollYProgress,
                 [start, end],
-                ["100%", "0%"]
+                [i === 0 ? "0%" : "100%", "0%"]
               );
               const scale = useTransform(
                 scrollYProgress,
                 [start, start + 0.08],
                 [0.92, 1]
               );
-              const opacity = useTransform(
-                scrollYProgress,
-                [start, start + 0.03],
-                [0, 1]
-              );
 
               return (
                 <motion.div
                   key={i}
-                  style={{ y, scale, opacity, zIndex: i + 1 }}
-                  className="absolute inset-0 "
+                  style={{ y, scale, zIndex: i + 1 }}
+                  className="absolute inset-0"
                 >
                   <img
                     src={service.img}
                     alt={service.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brown-950/50 to-transparent" />
+                  {/* GRADIENT OVERLAY REMOVED — PURE IMAGE */}
                 </motion.div>
               );
             })}
           </div>
         </div>
 
+        {/* =================================================
+            FOOTER INFO
+        ================================================= */}
         <div className="relative z-20 pb-8 px-6 md:px-12">
           <div className="flex justify-between items-end border-t border-white/20 pt-6">
             {services.map((service, i) => {
